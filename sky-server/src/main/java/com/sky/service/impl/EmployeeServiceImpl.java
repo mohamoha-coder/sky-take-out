@@ -133,6 +133,30 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, result);
     }
 
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     */
+    @Override
+    public void StartOrStop(Integer status, Long id) {
+        //update employee set status = ? where id  = ? 但是希望写一个动态的sql，提高通用性
+
+        //需要把信息封装到一个Employee对象里去，并传给employeeMapper里的update方法去执行sql语句
+//        Employee employee = new Employee();
+//        employee.setStatus(status);
+//        employee.setId(id);
+
+        //简洁的方法是采用实体类里的Builder注解，直接赋给参数值
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+
+        employeeMapper.update(employee);
+    }
+
 }
 
 

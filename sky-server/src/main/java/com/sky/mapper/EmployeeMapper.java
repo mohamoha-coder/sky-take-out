@@ -38,6 +38,15 @@ public interface EmployeeMapper {
 
     //因为需要动态查询，会使用到动态标签，不再使用注解的方式了，不方便，需要写Mapper.xml文件来进行
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 根据主键动态去修改属性
+     * 不再采用注解的方式，在Mapper.xml文件里可以写一个通用的
+     *
+     * --启用和禁用员工账号
+     * @param employee
+     */
+    void update(Employee employee);
 }
 
 

@@ -13,6 +13,7 @@ import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -112,4 +113,62 @@ public class EmployeeController {
 
     }
 
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    //对于查询类加上泛型<T>, 如果不是查询类的方法就可以不加了,主要是保证data的类型， 如果只是返回code就没有必要了
+    //观察接口文档， 路径为https://yapi.pro/mock/234656/admin/employee/status/{status}
+    //出现的有{status}作为路径参数，所以在传参的过程中需要加上一个注解PathVariable，通过这个注解来获取status参数的值，并补全上面PostMapping里的路径
+
+    public Result StartOrStop(@PathVariable Integer status, Long id){
+        log.info("启用禁用员工账号：{} , {}", status, id);
+
+        employeeService.StartOrStop(status, id);
+        return Result.success();
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
