@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.EmployeeMapper">
+
+    <!--
+    concat能够动态拼接，进行模糊查询
+    limit不用写，是因为PageHelper会帮助我们写
+    底层是基于TreadLocal来获取页码，在sql语句中动态补充limit里的内容
+    根据时间降序来排， desc
+    -->
+    <select id="pageQuery" resultType="com.sky.entity.Employee">
+        select * from employee
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
 </mapper>

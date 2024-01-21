@@ -1,5 +1,7 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,6 +29,15 @@ public interface EmployeeMapper {
     //前面是对应数据库的字段格式写的，用的是下划线
     //后面是employee实体类里的字段格式，能匹配上是因为在配置文件application.yml文件里写了开启驼峰命名方法
     void insert(Employee employee);
+
+    /**
+     * 分页查询员工
+     * @param employeePageQueryDTO
+     * @return
+     */
+
+    //因为需要动态查询，会使用到动态标签，不再使用注解的方式了，不方便，需要写Mapper.xml文件来进行
+    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 }
 
 
