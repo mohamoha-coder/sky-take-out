@@ -1,8 +1,10 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.annotation.AutoFill;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
+import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -28,6 +30,7 @@ public interface EmployeeMapper {
 
     //前面是对应数据库的字段格式写的，用的是下划线
     //后面是employee实体类里的字段格式，能匹配上是因为在配置文件application.yml文件里写了开启驼峰命名方法
+    @AutoFill(value = OperationType.INSERT)
     void insert(Employee employee);
 
     /**
@@ -46,6 +49,7 @@ public interface EmployeeMapper {
      * --启用和禁用员工账号
      * @param employee
      */
+    @AutoFill(OperationType.UPDATE)
     void update(Employee employee);
 
     /**
