@@ -8,6 +8,26 @@
             values
         (#{name}, #{categoryId}, #{price}, #{image}, #{description}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser}, #{status})
     </insert>
+
+    <!--select d.*, c.`name` as categoryName from dish d left outer join category c on d.category_id = c.id
+    这部分定义了一个左外连接（LEFT OUTER JOIN），将dish表和category表进行连接。连接条件是d.category_id = c.id，即dish表的category_id列等于category表的id列。
+    左外连接表示将保留左表（dish表）中的所有记录，无论是否在右表（category表）中有匹配的记录。如果没有匹配的记录，右表的相关列将显示为NULL。
+    -->
+    <select id="pageQuery" resultType="com.sky.vo.DishVO">
+        select d.*, c.`name` as categoryName from dish d left outer join category c on d.category_id = c.id
+        <where>
+            <if test="name != null">
+                and d.name like concat('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                and d.category_id  = #{categoryId}
+            </if>
+            <if test="status != null">
+                and d.status  = #{status}
+            </if>
+        </where>
+        order by d.create_time desc
+    </select>
 </mapper>
 
 
